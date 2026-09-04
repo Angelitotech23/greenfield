@@ -38,17 +38,31 @@ Eso es lo que resolvemos. Confianza en el pasillo, sin el mal gesto de pedir pap
 
 ---
 
-## Cómo se usa
+## Cómo funciona
 
-El titular construye su perfil. Elige qué mostrar. Comparte una dirección o un QR.
+No hace falta entender cadenas ni servidores. El sistema tiene cuatro movimientos, siempre los mismos.
 
-Quien abre esa página ve una hoja profesional clara: quién eres, qué has hecho, qué puedes demostrar. No hace falta entender tecnología para leerla. Solo hace falta poder distinguir tres cosas, en lenguaje de todos los días:
+**1. Tú armas tu hoja.**  
+Creas un perfil público con tu nombre, tu oficio y tu historia. Eso es tuyo: lo editas cuando quieras. Hasta aquí se parece a cualquier currículum. La diferencia empieza en el paso siguiente.
 
-1. **Lo que escribiste tú.** Se puede cambiar. Es tu relato.
-2. **Lo que ya existía en otro sistema serio.** Un curso, una certificación, un emisor digital conocido. Se marca como contrastado, no como dogma.
-3. **Lo que un emisor firmó de forma verificable.** Eso no se “edita” desde el perfil. Si la universidad o la empresa lo emitió, se ve. Si lo retira, deja de valer.
+**2. Quien te otorgó algo puede firmarlo.**  
+Una universidad, una empresa, un emisor de certificados entra por su lado —no por el tuyo— y deja constancia: este título, este cargo, este tiempo en la compañía. Esa firma no la pones tú. Si mañana dejas de ser CEO, la empresa puede retirar el sello. Si nunca lo fuiste, no hay sello que mostrar.
 
-Esa diferencia es el producto. El resto es presentación.
+**3. Lo firmado queda comprobable.**  
+La declaración vive en tu perfil. La firma vive en un registro público que no depende de que tú (ni LinkedIn) lo hayas escrito bien. Cualquiera que abra tu hoja puede ver, en el acto, qué es relato y qué está respaldado. No tiene que llamar a RH. No tiene que pedirte el contrato. La página ya lo dice.
+
+Hay tres lecturas, a propósito simples:
+
+| Lo que ves | Qué significa | ¿Lo puede inventar el titular? |
+| --- | --- | --- |
+| **Declarado** | Lo escribió él. Se puede borrar o cambiar. | Sí. Es su palabra. |
+| **Contrastado** | Ya existía en un emisor conocido (un curso, una certificación). Se consultó ahí. | No a gusto. Hay que pasar por ese emisor. |
+| **Firmado** | Lo selló la institución o la empresa. Se puede comprobar. Si lo revocan, deja de valer. | No. |
+
+**4. Lo compartes sin app.**  
+Un enlace. Un QR. Un toque. La otra persona abre el currículum en el teléfono, ahí mismo, en el evento. Verde o firmado: puedes creerle sin poner cara rara. Solo declarado: también lo ves, y decides tú cuánto peso le das. Nadie queda interrogado en público.
+
+Eso es el producto en marcha: **no reemplazamos la conversación; le quitamos la mentira fácil.**
 
 ---
 
@@ -78,9 +92,9 @@ LatAm es el terreno natural: movilidad, informalidad, títulos reales que no via
 
 ## Cómo mirarlo
 
-Si abres este repositorio, estás viendo el producto, no un manual de planta. El funcionamiento interno, los proveedores y la arquitectura se reservan a quien tenga motivo para operar el sistema.
+Este repositorio es el producto. No es un manual de planta: los proveedores y la arquitectura interna se reservan a quien tenga motivo para operar el sistema.
 
-Para hacerse una idea, basta con recorrer la experiencia: crear un perfil, explorar el directorio, abrir un currículum de ejemplo y notar qué está solo declarado y qué está firmado.
+Si quieres verlo en movimiento: crea un perfil, abre el directorio, entra a un currículum y fíjate qué está solo declarado y qué está firmado. Esa diferencia es toda la mecánica.
 
 ---
 
