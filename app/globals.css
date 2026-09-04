@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f4efe3;
+  --ink: #16130e;
+  --rule: #d7cbb3;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse at top, rgba(232, 184, 74, 0.08), transparent 50%),
+    linear-gradient(180deg, #f7f3ea 0%, #efe7d6 100%);
+  min-height: 100vh;
+}
+
+::selection {
+  background: #e8b84a;
+  color: #16130e;
+}
+
+.paper-card {
+  background: #fffaf0;
+  border: 1px solid var(--rule);
+  box-shadow: 0 12px 40px rgba(22, 19, 14, 0.06);
+}
+
+.stamp {
+  border: 2px solid currentColor;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule), transparent);
+}
