@@ -18,6 +18,24 @@ Lo que tú declaras sigue siendo tuyo. Lo que otro firma, se distingue. Lo que n
 
 ---
 
+## Un ejemplo: el evento
+
+Estás en un congreso, una feria, un after. Alguien se acerca. Es extranjero, o no. Da igual. Se presenta como CEO, como “head of”, como alguien que lleva tres años en una empresa que todos reconocen. Saca el teléfono y te muestra un perfil público: foto seria, cargo en grande, Google, un fondo, una historia redonda.
+
+Ese perfil lo pudo armar cualquiera. Incluso tres horas antes de entrar a la sala. No hay sello de la empresa. No hay firma de quien lo contrató. Solo hay texto, y texto se reescribe.
+
+Tú asientes. Pedirle una demostración —un contrato, un correo corporativo, una llamada a RH— es incómodo. Si el cargo es real, quedas como desconfiado. Si no lo es, ya le diste la conversación, la foto juntos, tal vez una intro a tu red.
+
+Ahí es donde hoy se pierde la verdad: no porque la gente sea ingenua, sino porque **no hay una forma elegante de verificar sin ofender**.
+
+Con Pasaporte Profesional esa escena cambia de tono, no de cortesía. La persona te pasa un QR o un enlace. Abres su hoja. Si el cargo en esa compañía está **firmado por la compañía**, se ve. Si solo lo escribió él, también se ve —y se ve como eso: una declaración. No tienes que interrogarlo. No tienes que sonreírle a una biografía que nació esa tarde. La diferencia está en la página, a la vista de los dos.
+
+El que sí es CEO no se siente acusado: se siente respaldado. El que no lo es deja de tener un escenario tan barato.
+
+Eso es lo que resolvemos. Confianza en el pasillo, sin el mal gesto de pedir papeles.
+
+---
+
 ## Cómo se usa
 
 El titular construye su perfil. Elige qué mostrar. Comparte una dirección o un QR.
