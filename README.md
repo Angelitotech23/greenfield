@@ -76,6 +76,8 @@ El perfil público puede, como máximo, indicar que existe un canal discreto par
 
 Eso no es un detalle técnico. Es una decisión de diseño y de respeto.
 
+El marco está en [`docs/analisis-legal.md`](docs/analisis-legal.md): a Polygon van hashes, títulos, empleo y el SBT del pasaporte. No van nombre en claro, foto, biometría ni antecedentes.
+
 ---
 
 ## Para quién es
@@ -90,9 +92,119 @@ LatAm es el terreno natural: movilidad, informalidad, títulos reales que no via
 
 ---
 
-## Cómo mirarlo
+## Arquitectura
 
-Este repositorio es el producto. No es un manual de planta: los proveedores y la arquitectura interna se reservan a quien tenga motivo para operar el sistema.
+La app es un monolito [Next.js 15](https://nextjs.org/) (App Router). La cadena no es el producto: es el ancla de lo firmado. El currículum, la visibilidad y el casillero de integridad viven off-chain.
+
+```
+Titular / emisor / validador / reclutador
+                 │
+            Next.js 15
+                 │
+            API routes
+        ┌────────┼────────┐
+        │        │        │
+   Perfil CV   EAS/SBT   Vault
+   (off-chain) (Polygon) (off-chain, borrable)
+```
+
+| Pieza | Rol |
+| --- | --- |
+| **Next.js 15 + React 19 + Tailwind** | UI, rutas públicas y paneles por rol |
+| **Store de aplicación** | Perfiles, credenciales, grants y eventos |
+| **Ethereum Attestation Service (EAS)** | Atestaciones en Polygon Amoy (`80002`) o mainnet (`137`) |
+| **`ReputationPassport`** | NFT soulbound (ERC-5192): un pasaporte por wallet |
+| **`IssuerResolver`** | Allowlist de wallets que pueden firmar |
+| **Supabase** | Esquema SQL listo en `supabase/migrations/`; persistencia de producción |
+| **Privy + Pimlico** | Login Web2, embedded wallet y gas patrocinado |
+| **Sumsub** | KYC y prueba de unicidad (hash, no PII on-chain) |
+
+Schemas EAS permitidos (solo hashes, sin dato penal): `IdentityVerified`, `AcademicCredential`, `EmploymentAttestation`, `BrandRepresentation`, `Web2Credential`.
+
+Prohibidos de forma explícita: `BackgroundCheck`, `CriminalRecord`, `Warrant`, `flagged`.
+
+---
+
+## Flujo en el sistema
+
+1. **Entrar** en `/auth` (correo, wallet o una persona de demo).
+2. **Armar el CV** en `/app`: titular, bio, skills, experiencia declarada, visibilidad.
+3. **Identidad** en `/onboarding`: KYC, nombre legal bloqueado, compromiso de unicidad.
+4. **Contrastar** un curso Web2 (DataCamp, Microsoft Learn, Coursera) desde credenciales.
+5. **Firmar** desde `/issuer`: la universidad o la empresa emite el sello; el titular no puede editarlo.
+6. **Mostrar** `/{handle}` o el QR. El reclutador ve declarado / contrastado / firmado.
+7. **Integridad** (si aplica): el validador carga el vault off-chain; el titular comparte un grant. Esa página no se indexa. Borrar el vault no toca Polygon porque ahí no había dato penal.
+
+Roles: `user`, `issuer`, `validator`, `organizer`, `admin`.
+
+---
+
+## Estructura del repositorio
+
+| Ruta | Qué hay |
+| --- | --- |
+| `app/` | Páginas (marketing, CV público, paneles) y `app/api/` |
+| `app/[handle]/` | Currículum público |
+| `components/` | CV, semáforo, QR, formularios por rol |
+| `lib/store/` | Estado de la app y seed de demostración |
+| `lib/eas/` | Schemas y cliente EAS |
+| `lib/auth/` | Sesión y roles |
+| `contracts/src/` | `ReputationPassport.sol` e `IssuerResolver.sol` |
+| `supabase/migrations/` | Esquema off-chain |
+| `docs/analisis-legal.md` | Qué va on-chain y qué no |
+| `docs/mainnet.md` | Checklist hacia Amoy / mainnet |
+| `.env.example` | Variables de entorno |
+
+---
+
+## Cómo arrancarlo
+
+Hace falta Node.js 20 o superior.
+
+```bash
+git clone https://github.com/Angelitotech23/greenfield.git
+cd greenfield
+npm install
+```
+
+Copia `.env.example` a `.env.local`. Con `NEXT_PUBLIC_DEMO_MODE=true` (el valor por defecto) no hace falta Privy, Supabase ni una wallet con MATIC.
+
+```bash
+npm run dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000). En `/auth` puedes entrar con estas personas:
+
+| Persona | Correo | Qué ver |
+| --- | --- | --- |
+| Pablo | `pablo@saipit.example` | Titular con sello + emisor |
+| María | `maria@example.com` | Credenciales Web2 |
+| Luis | `luis@example.com` | Solo declarado, sin KYC |
+| UMSA | `registro@umsa.example` | Emisor académico |
+| Mesa de integridad | `integridad@example.com` | Validador (vault off-chain) |
+| Laboratorio de eventos | `eventos@andes.example` | Organizador / check-in |
+
+CV de ejemplo: [/pablo](http://localhost:3000/pablo).
+
+Contratos (Foundry), cuando toque desplegar:
+
+```bash
+cd contracts
+forge build
+```
+
+El resto del camino a cadena —schemas EAS, SBT, Privy, paymaster, Sumsub— está en [`docs/mainnet.md`](docs/mainnet.md).
+
+---
+
+## Estado de este repositorio
+
+Esto es el producto en demostración, no un registro de producción.
+
+- El semáforo, los roles y el CV público se pueden recorrer ahora.
+- En demo, el estado vive en memoria del servidor: se reinicia con el proceso.
+- Las atestaciones EAS y el mint del SBT se simulan hasta completar el checklist de `docs/mainnet.md` y poner `NEXT_PUBLIC_DEMO_MODE=false`.
+- La migración de Supabase describe el destino de los datos; hay que cablearla para persistir.
 
 Si quieres verlo en movimiento: crea un perfil, abre el directorio, entra a un currículum y fíjate qué está solo declarado y qué está firmado. Esa diferencia es toda la mecánica.
 
