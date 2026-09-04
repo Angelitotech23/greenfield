@@ -14,55 +14,59 @@ export function CvView({
   const { profile } = cv;
 
   return (
-    <article className="paper-card overflow-hidden">
-      <div className="bg-[#12100c] px-6 py-8 text-[#f4efe3] md:px-10">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-[#e8b84a]">
-          Currículum verificable
-        </p>
-        <h1 className="font-display mt-2 text-4xl md:text-5xl">{profile.legalName}</h1>
-        <p className="mt-2 text-lg text-[#e8e0d0]">{profile.displayHeadline}</p>
-        <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[#cfc4ae]">
-          <span>/{profile.handle}</span>
-          <span>{shortAddress(profile.walletAddress)}</span>
-          {profile.sbtTokenId && <span>SBT #{profile.sbtTokenId}</span>}
+    <article className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#111]">
+      <div className="relative min-h-[280px] md:min-h-[340px]">
+        {profile.avatarUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={profile.avatarUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-foil/20 to-transparent" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/70 to-transparent" />
+        <div className="relative flex h-full flex-col justify-end gap-4 p-6 md:flex-row md:items-end md:justify-between md:p-10">
+          <div>
+            <p className="font-mono text-[11px] text-foil">/{profile.handle}</p>
+            <h1 className="font-display mt-2 text-4xl md:text-6xl">{profile.legalName}</h1>
+            <p className="mt-2 text-lg text-ink-50/75">{profile.displayHeadline}</p>
+            <p className="mrz mt-3">
+              {shortAddress(profile.walletAddress)}
+              {profile.sbtTokenId ? ` · SBT #${profile.sbtTokenId}` : ""}
+            </p>
+          </div>
           {profile.kycStatus === "approved" && (
-            <span className="stamp border-[#2f9e6b] px-2 py-0.5 text-[#2f9e6b]">
-              Identidad verificada
-            </span>
+            <span className="visa-stamp text-seal-green">Identidad verificada</span>
           )}
         </div>
       </div>
 
-      <div className="grid gap-10 px-6 py-8 md:grid-cols-[200px_1fr] md:px-10">
+      <div className="grid gap-10 p-6 md:grid-cols-[220px_1fr] md:p-10">
         <aside className="space-y-6">
-          {profile.avatarUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={profile.avatarUrl}
-              alt=""
-              className="aspect-square w-full object-cover"
-            />
-          ) : (
-            <div className="flex aspect-square items-center justify-center bg-[#efe7d6] font-display text-5xl">
-              {profile.legalName.slice(0, 1)}
-            </div>
-          )}
+          <div className="photo-frame max-w-[180px]">
+            {profile.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={profile.avatarUrl} alt="" className="aspect-square w-full object-cover" />
+            ) : (
+              <div className="flex aspect-square items-center justify-center bg-[#1a1a1a] font-display text-5xl text-foil">
+                {profile.legalName.slice(0, 1)}
+              </div>
+            )}
+          </div>
           <div>
-            <h2 className="text-xs uppercase tracking-[0.18em] text-[#7a7366]">Skills</h2>
-            <ul className="mt-2 flex flex-wrap gap-2">
+            <h2 className="kicker">Skills</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
               {cv.skills.map((s) => (
-                <li key={s.id} className="border border-[#d7cbb3] px-2 py-1 text-sm">
+                <li key={s.id} className="rounded-full border border-white/10 px-3 py-1 text-xs text-ink-600">
                   {s.name}
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h2 className="text-xs uppercase tracking-[0.18em] text-[#7a7366]">Enlaces</h2>
-            <ul className="mt-2 space-y-1 text-sm">
+            <h2 className="kicker">Enlaces</h2>
+            <ul className="mt-3 space-y-1 text-sm">
               {cv.links.map((l) => (
                 <li key={l.id}>
-                  <a href={l.url} className="underline" target="_blank" rel="noreferrer">
+                  <a href={l.url} className="text-foil hover:underline" target="_blank" rel="noreferrer">
                     {l.label}
                   </a>
                 </li>
@@ -71,29 +75,29 @@ export function CvView({
           </div>
         </aside>
 
-        <div className="space-y-10">
+        <div className="space-y-12">
           <section>
             <h2 className="font-display text-2xl">Sobre mí</h2>
-            <p className="mt-3 max-w-prose leading-relaxed text-[#3d382f]">
+            <p className="mt-3 max-w-prose leading-relaxed text-ink-600">
               {profile.bio || "Sin biografía pública."}
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-2xl">Experiencia</h2>
-            <ul className="mt-4 space-y-5">
+            <ul className="mt-5 space-y-6">
               {cv.experience.map((item) => (
-                <li key={item.id} className="border-l-2 border-[#d7cbb3] pl-4">
+                <li key={item.id} className="border-l border-foil/30 pl-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-medium">
                       {item.title} · {item.company}
                     </p>
                     <TrafficLight level={item.trustLevel} compact />
                   </div>
-                  <p className="text-sm text-[#7a7366]">
+                  <p className="font-mono text-[11px] text-ink-600">
                     {formatDate(item.startDate)} — {formatDate(item.endDate)}
                   </p>
-                  <p className="mt-1 text-sm">{item.description}</p>
+                  <p className="mt-1 text-sm text-ink-600">{item.description}</p>
                   {item.easUid && <SealButton easUid={item.easUid} title={item.title} />}
                 </li>
               ))}
@@ -102,7 +106,7 @@ export function CvView({
 
           <section>
             <h2 className="font-display text-2xl">Educación</h2>
-            <ul className="mt-4 space-y-4">
+            <ul className="mt-5 space-y-4">
               {cv.education.map((item) => (
                 <li key={item.id}>
                   <div className="flex flex-wrap items-center gap-2">
@@ -111,7 +115,7 @@ export function CvView({
                     </p>
                     <TrafficLight level={item.trustLevel} compact />
                   </div>
-                  <p className="text-sm text-[#7a7366]">
+                  <p className="text-sm text-ink-600">
                     {item.school} · {item.year}
                   </p>
                   {item.easUid && <SealButton easUid={item.easUid} title={item.school} />}
@@ -122,14 +126,14 @@ export function CvView({
 
           <section>
             <h2 className="font-display text-2xl">Certificaciones</h2>
-            <ul className="mt-4 space-y-4">
+            <ul className="mt-5 space-y-4">
               {cv.credentials.map((item) => (
-                <li key={item.id} className="flex flex-col gap-1 border-b border-[#efe7d6] pb-3">
+                <li key={item.id} className="flex flex-col gap-1 border-b border-white/5 pb-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-medium">{item.title}</p>
                     <TrafficLight level={item.trustLevel} compact />
                   </div>
-                  <p className="text-sm text-[#7a7366]">{item.issuerName}</p>
+                  <p className="text-sm text-ink-600">{item.issuerName}</p>
                   {item.easUid && <SealButton easUid={item.easUid} title={item.title} />}
                 </li>
               ))}
@@ -137,16 +141,14 @@ export function CvView({
           </section>
 
           {integrityHref && (
-            <aside className="border border-dashed border-[#7a7366] p-4 text-sm">
-              <p className="text-xs uppercase tracking-[0.16em] text-[#7a7366]">
-                Verificación de integridad
+            <aside className="rounded-2xl border border-white/10 p-5 text-sm">
+              <p className="kicker">Integridad</p>
+              <p className="mt-2 max-w-prose text-ink-600">
+                El casillero penal no está en este CV ni en la blockchain. Acceso
+                autorizado, sección aparte.
               </p>
-              <p className="mt-2 max-w-prose">
-                El casillero penal no está en este CV ni en la blockchain. Si tienes un
-                acceso autorizado, continúa a una sección aparte, no indexable.
-              </p>
-              <Link href={integrityHref} className="mt-3 inline-block underline">
-                Ir a la sección de integridad
+              <Link href={integrityHref} className="mt-3 inline-block text-foil hover:underline">
+                Ir a verificación de integridad
               </Link>
             </aside>
           )}

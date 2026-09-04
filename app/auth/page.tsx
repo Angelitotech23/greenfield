@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const demos = [
-  { label: "Pablo (usuario + emisor)", email: "pablo@saipit.example" },
-  { label: "María (Web2 amarillo)", email: "maria@example.com" },
-  { label: "Luis (solo declarado)", email: "luis@example.com" },
-  { label: "UMSA (emisor)", email: "registro@umsa.example" },
+  { label: "Pablo — titular y emisor", email: "pablo@saipit.example" },
+  { label: "María — sellos Web2", email: "maria@example.com" },
+  { label: "Luis — solo declarado", email: "luis@example.com" },
+  { label: "UMSA — emisor académico", email: "registro@umsa.example" },
   { label: "Validador de integridad", email: "integridad@example.com" },
   { label: "Organizador", email: "eventos@andes.example" },
 ];
@@ -37,79 +37,66 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="mx-auto max-w-xl space-y-8">
-      <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-[#9a7420]">Login híbrido</p>
-        <h1 className="font-display mt-2 text-4xl">Entra con correo o wallet</h1>
-        <p className="mt-3 text-[#3d382f]">
-          En producción esto lo cubre Privy (Google, email y MetaMask) y crea una
-          embedded wallet para quien viene de Web2. Aquí el modo demo simula ambas
-          puertas y deja una sesión.
-        </p>
+    <div className="page-wrap">
+      <div className="mx-auto grid max-w-4xl gap-12 md:grid-cols-2">
+        <div>
+          <p className="kicker">Acceso</p>
+          <h1 className="font-display mt-3 text-4xl font-semibold md:text-5xl">
+            Correo o wallet.
+            <br />
+            Mismo perfil.
+          </h1>
+          <p className="mt-4 leading-relaxed text-ink-600">
+            En producción entra Privy. Aquí el modo demo deja sesión al instante.
+          </p>
+        </div>
+        <div className="space-y-4">
+          <form
+            className="paper-card space-y-3 rounded-2xl p-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void login({ email, name: email.split("@")[0] });
+            }}
+          >
+            <label className="block text-sm text-ink-600">
+              Correo
+              <input className="field" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@correo.com" type="email" required />
+            </label>
+            <button disabled={busy} className="btn btn-foil">
+              Continuar
+            </button>
+          </form>
+          <form
+            className="paper-card space-y-3 rounded-2xl p-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void login({ walletAddress: wallet, name: "Wallet" });
+            }}
+          >
+            <label className="block text-sm text-ink-600">
+              Wallet
+              <input className="field font-mono" value={wallet} onChange={(e) => setWallet(e.target.value)} placeholder="0x…" required />
+            </label>
+            <button disabled={busy} className="btn btn-ghost">
+              Firmar
+            </button>
+          </form>
+          <ul className="grid gap-2">
+            {demos.map((d) => (
+              <li key={d.email}>
+                <button
+                  type="button"
+                  className="w-full rounded-xl border border-white/10 px-3 py-2.5 text-left text-sm hover:border-foil/50"
+                  onClick={() => void login({ email: d.email })}
+                >
+                  {d.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+          {error && <p className="text-sm text-foil">{error}</p>}
+        </div>
       </div>
-
-      <form
-        className="paper-card space-y-3 p-6"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void login({ email, name: email.split("@")[0] });
-        }}
-      >
-        <label className="block text-sm">
-          Correo
-          <input
-            className="mt-1 w-full border border-[#d7cbb3] bg-white px-3 py-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="tu@correo.com"
-            type="email"
-            required
-          />
-        </label>
-        <button disabled={busy} className="bg-[#12100c] px-4 py-2 text-[#f4efe3]">
-          Entrar con correo
-        </button>
-      </form>
-
-      <form
-        className="paper-card space-y-3 p-6"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void login({ walletAddress: wallet, name: "Wallet" });
-        }}
-      >
-        <label className="block text-sm">
-          Dirección de billetera (demo / WalletConnect)
-          <input
-            className="mt-1 w-full border border-[#d7cbb3] bg-white px-3 py-2 font-mono text-sm"
-            value={wallet}
-            onChange={(e) => setWallet(e.target.value)}
-            placeholder="0x…"
-            required
-          />
-        </label>
-        <button disabled={busy} className="border border-[#12100c] px-4 py-2">
-          Firmar y entrar
-        </button>
-      </form>
-
-      <div>
-        <p className="text-sm text-[#7a7366]">Cuentas de demostración</p>
-        <ul className="mt-2 grid gap-2">
-          {demos.map((d) => (
-            <li key={d.email}>
-              <button
-                type="button"
-                className="w-full border border-[#d7cbb3] px-3 py-2 text-left text-sm hover:bg-[#fffaf0]"
-                onClick={() => void login({ email: d.email })}
-              >
-                {d.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      {error && <p className="text-sm text-red-700">{error}</p>}
     </div>
   );
 }

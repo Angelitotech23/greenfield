@@ -9,23 +9,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        cover: {
+          DEFAULT: "#0a0a0a",
+          deep: "#050505",
+          rose: "#d4af37",
+        },
+        foil: {
+          DEFAULT: "#d4af37",
+          bright: "#f3e0a3",
+          dim: "#a8935e",
+        },
         ink: {
-          50: "#f4f1ea",
-          100: "#e8e0d0",
-          800: "#1c1914",
-          900: "#12100c",
-          950: "#0b0a07",
+          50: "#f2f0eb",
+          100: "#e8e4dc",
+          600: "#8a8580",
+          800: "#cfc9c0",
+          900: "#f2f0eb",
+          950: "#ffffff",
         },
         seal: {
-          white: "#e8e4dc",
-          yellow: "#e8b84a",
-          green: "#2f9e6b",
+          void: "#6b6660",
+          amber: "#d4af37",
+          green: "#3dcf8e",
         },
-        paper: "#f7f3ea",
+        paper: {
+          DEFAULT: "#0a0a0a",
+          raised: "#141414",
+          rule: "rgba(255,255,255,0.08)",
+        },
       },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      boxShadow: {
+        folio: "0 30px 80px -40px rgba(212, 175, 55, 0.25)",
+        stamp: "none",
       },
     },
   },

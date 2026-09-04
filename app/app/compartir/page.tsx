@@ -13,10 +13,10 @@ export default async function CompartirPage() {
   const url = `${appUrl()}/${profile.handle}`;
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrap space-y-8">
       <div>
         <h1 className="font-display text-4xl">Tarjeta de presentación</h1>
-        <p className="mt-2 max-w-2xl text-[#3d382f]">
+        <p className="mt-2 max-w-2xl text-ink-600">
           En la calle, en una reunión o en un evento: acercas el QR, el enlace o la
           tarjeta NFC. El otro abre tu CV en el navegador, sin app ni wallet.
         </p>

@@ -22,7 +22,7 @@ export function AppNav({
   current: string;
 }) {
   return (
-    <nav className="flex flex-wrap gap-2">
+    <nav className="flex flex-wrap gap-1">
       {items
         .filter((item) => !item.roles || item.roles.some((r) => roles.includes(r)))
         .map((item) => (
@@ -30,8 +30,10 @@ export function AppNav({
             key={item.href}
             href={item.href}
             className={cn(
-              "border border-[#d7cbb3] px-3 py-1.5 text-sm",
-              current === item.href && "bg-[#12100c] text-[#f4efe3]",
+              "rounded-full px-3 py-1.5 text-sm transition",
+              current === item.href
+                ? "bg-foil text-black"
+                : "text-ink-600 hover:text-ink-50",
             )}
           >
             {item.label}

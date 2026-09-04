@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 import { LogoutButton } from "@/components/logout-button";
 import { getSession } from "@/lib/auth/session";
 import { getProfileById } from "@/lib/store/memory";
@@ -8,39 +9,34 @@ export async function SiteHeader() {
   const profile = session ? getProfileById(session.profileId) : null;
 
   return (
-    <header className="border-b border-[#d7cbb3] bg-[#12100c] text-[#f4efe3]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <Link href="/" className="flex items-baseline gap-2">
-          <span className="font-display text-xl tracking-tight">Pasaporte</span>
-          <span className="text-[11px] uppercase tracking-[0.22em] text-[#e8b84a]">
-            Profesional
-          </span>
+    <header className="sticky top-0 z-40 border-b border-white/5 bg-black/55 text-ink-50 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+        <Link href="/" className="flex items-center gap-2.5">
+          <BrandMark className="h-8 w-8" />
+          <span className="font-display text-lg tracking-tight">Pasaporte</span>
         </Link>
-        <nav className="flex items-center gap-5 text-sm">
-          <Link href="/explorar" className="opacity-80 hover:opacity-100">
+        <nav className="flex items-center gap-1 text-sm text-ink-600">
+          <Link href="/explorar" className="rounded-full px-3 py-1.5 hover:text-ink-50">
             Explorar
           </Link>
-          <Link href="/privacidad" className="opacity-80 hover:opacity-100">
+          <Link href="/privacidad" className="hidden rounded-full px-3 py-1.5 hover:text-ink-50 sm:inline">
             Privacidad
           </Link>
           {profile ? (
             <>
-              <Link href="/app" className="opacity-80 hover:opacity-100">
+              <Link href="/app" className="rounded-full px-3 py-1.5 hover:text-ink-50">
                 Mi CV
               </Link>
               <Link
                 href={`/${profile.handle}`}
-                className="rounded-full border border-[#e8b84a]/50 px-3 py-1 text-[#e8b84a]"
+                className="hidden rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] text-foil sm:inline"
               >
                 /{profile.handle}
               </Link>
               <LogoutButton />
             </>
           ) : (
-            <Link
-              href="/auth"
-              className="rounded-full bg-[#e8b84a] px-4 py-1.5 text-[#12100c]"
-            >
+            <Link href="/auth" className="btn btn-foil ml-1 py-1.5 text-[13px]">
               Entrar
             </Link>
           )}

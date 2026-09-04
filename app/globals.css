@@ -3,42 +3,175 @@
 @tailwind utilities;
 
 :root {
-  --paper: #f4efe3;
-  --ink: #16130e;
-  --rule: #d7cbb3;
+  --cover: #0a0a0a;
+  --cover-deep: #050505;
+  --foil: #d4af37;
+  --foil-bright: #f3e0a3;
+  --paper: #0a0a0a;
+  --paper-raised: #141414;
+  --ink: #f2f0eb;
+  --muted: #8a8580;
+  --rule: rgba(242, 240, 235, 0.08);
 }
 
 html,
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: #0a0a0a;
+  color: #f2f0eb;
 }
 
 body {
-  background-image:
-    radial-gradient(ellipse at top, rgba(232, 184, 74, 0.08), transparent 50%),
-    linear-gradient(180deg, #f7f3ea 0%, #efe7d6 100%);
   min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 50% at 80% -10%, rgba(212, 175, 55, 0.08), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(212, 175, 55, 0.04), transparent 45%),
+    #0a0a0a;
 }
 
 ::selection {
-  background: #e8b84a;
-  color: #16130e;
+  background: var(--foil);
+  color: #0a0a0a;
+}
+
+.page-wrap {
+  @apply mx-auto w-full max-w-6xl px-5 py-12 md:py-16;
+}
+
+.kicker {
+  @apply text-[11px] font-medium uppercase tracking-[0.28em] text-foil;
 }
 
 .paper-card {
-  background: #fffaf0;
+  background: rgba(20, 20, 20, 0.8);
   border: 1px solid var(--rule);
-  box-shadow: 0 12px 40px rgba(22, 19, 14, 0.06);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(16px);
 }
 
 .stamp {
-  border: 2px solid currentColor;
+  border: 1px solid currentColor;
   text-transform: uppercase;
   letter-spacing: 0.14em;
+  font-weight: 500;
 }
 
-.hairline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--rule), transparent);
+.visa-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  padding: 0.2rem 0.65rem;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.visa-stamp::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium transition duration-200;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: #0a0a0a;
+}
+
+.btn-primary:hover {
+  background: var(--foil);
+}
+
+.btn-ghost {
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: var(--foil);
+  color: var(--foil);
+}
+
+.btn-foil {
+  background: var(--foil);
+  color: #0a0a0a;
+}
+
+.btn-foil:hover {
+  background: var(--foil-bright);
+}
+
+.field {
+  @apply mt-1 w-full rounded-lg border bg-transparent px-3 py-2.5 text-sm outline-none;
+  border-color: var(--rule);
+  color: var(--ink);
+}
+
+.field:focus {
+  border-color: var(--foil);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.guilloche {
+  background: radial-gradient(circle at 70% 20%, rgba(212, 175, 55, 0.12), transparent 42%);
+}
+
+.mrz {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.photo-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.photo-frame::after {
+  display: none;
+}
+
+.binding {
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.25), transparent);
+  width: 1px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.7s ease both;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+select,
+textarea {
+  background: transparent !important;
+  color: #f2f0eb !important;
+  border-color: rgba(242, 240, 235, 0.12) !important;
+  border-radius: 0.75rem;
+}
+
+input:disabled,
+textarea:disabled {
+  background: #1a1a1a !important;
+  color: #8a8580 !important;
 }

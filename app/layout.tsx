@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Sans_3 } from "next/font/google";
+import { Syne, Outfit, IBM_Plex_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Syne({
   subsets: ["latin"],
   variable: "--font-display",
+  weight: ["500", "600", "700", "800"],
 });
 
-const sans = Source_Sans_3({
+const sans = Outfit({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -28,10 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${display.variable} ${sans.variable} font-sans antialiased`}>
+      <body className={`${display.variable} ${sans.variable} ${mono.variable} font-sans antialiased`}>
         <Providers>
           <SiteHeader />
-          <main className="mx-auto min-h-[70vh] max-w-6xl px-5 py-10">{children}</main>
+          <main className="min-h-[72vh]">{children}</main>
           <SiteFooter />
         </Providers>
       </body>

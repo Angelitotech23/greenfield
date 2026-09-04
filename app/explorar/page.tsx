@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PageIntro } from "@/components/page-intro";
 import { searchProfiles } from "@/lib/store/memory";
 
 export default async function ExplorarPage({
@@ -10,33 +11,31 @@ export default async function ExplorarPage({
   const results = searchProfiles(q);
 
   return (
-    <div className="space-y-8">
-      <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-[#9a7420]">Directorio</p>
-        <h1 className="font-display mt-2 text-4xl">Buscar profesionales</h1>
-        <p className="mt-2 max-w-xl text-[#3d382f]">
-          Nombre, handle, skill o emisor. Un directorio de profesionales,
-          sin feed ni solicitudes de conexión.
-        </p>
-      </div>
+    <div className="page-wrap space-y-10">
+      <PageIntro kicker="Directorio" title="Personas verificables">
+        Busca por nombre, handle, oficio o emisor.
+      </PageIntro>
       <form className="flex gap-2">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder="pablo, SQL, UMSA…"
-          className="flex-1 border border-[#d7cbb3] bg-white px-3 py-2"
-        />
-        <button className="bg-[#12100c] px-4 py-2 text-[#f4efe3]">Buscar</button>
+        <input name="q" defaultValue={q} placeholder="pablo, SQL, UMSA…" className="field flex-1 !mt-0" />
+        <button className="btn btn-foil">Buscar</button>
       </form>
-      <ul className="grid gap-4 md:grid-cols-2">
+      <ul className="grid gap-4 sm:grid-cols-2">
         {results.map((p) => (
-          <li key={p.id} className="paper-card p-5">
-            <p className="text-xs text-[#7a7366]">/{p.handle}</p>
-            <h2 className="font-display text-2xl">{p.legalName}</h2>
-            <p className="mt-1 text-sm">{p.displayHeadline}</p>
-            <p className="mt-3 line-clamp-2 text-sm text-[#5c5346]">{p.bio}</p>
-            <Link href={`/${p.handle}`} className="mt-4 inline-block text-sm underline">
-              Ver currículum
+          <li key={p.id}>
+            <Link href={`/${p.handle}`} className="group flex overflow-hidden rounded-2xl border border-white/10">
+              {p.avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={p.avatarUrl} alt="" className="h-32 w-28 object-cover transition duration-500 group-hover:scale-105" />
+              ) : (
+                <div className="flex h-32 w-28 items-center justify-center bg-[#141414] font-display text-3xl text-foil">
+                  {p.legalName.slice(0, 1)}
+                </div>
+              )}
+              <div className="min-w-0 p-4">
+                <p className="font-mono text-[10px] text-foil">/{p.handle}</p>
+                <h2 className="font-display text-2xl leading-tight">{p.legalName}</h2>
+                <p className="mt-1 line-clamp-2 text-sm text-ink-600">{p.displayHeadline}</p>
+              </div>
             </Link>
           </li>
         ))}

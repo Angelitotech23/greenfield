@@ -11,10 +11,10 @@ export default async function VisibilidadPage() {
   if (!cv) redirect("/auth");
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrap space-y-8">
       <div>
         <h1 className="font-display text-4xl">Visibilidad</h1>
-        <p className="mt-2 max-w-2xl text-[#3d382f]">
+        <p className="mt-2 max-w-2xl text-ink-600">
           Elige qué partes del CV se ven en público. El puente a integridad es un
           interruptor aparte: no incrusta el expediente en el currículum.
         </p>

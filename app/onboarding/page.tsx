@@ -11,10 +11,10 @@ export default async function OnboardingPage() {
   if (!profile) redirect("/auth");
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrap space-y-8">
       <div>
         <h1 className="font-display text-4xl">Identidad y anti-clonación</h1>
-        <p className="mt-2 max-w-2xl text-[#3d382f]">
+        <p className="mt-2 max-w-2xl text-ink-600">
           El sistema no guarda tu cara ni el documento. Solo un hash de unicidad. Si
           el mismo sujeto ya tiene otro perfil, se rechaza la segunda cuenta.
         </p>

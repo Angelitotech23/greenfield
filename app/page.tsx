@@ -3,72 +3,105 @@ import { searchProfiles } from "@/lib/store/memory";
 
 export default function HomePage() {
   const sample = searchProfiles("").slice(0, 3);
+  const featured = sample[0];
 
   return (
-    <div className="space-y-16">
-      <section className="grid items-end gap-10 md:grid-cols-[1.2fr_0.8fr]">
-        <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-[#9a7420]">
-            LatAm · identidad profesional
-          </p>
-          <h1 className="font-display mt-3 text-5xl leading-[1.05] md:text-7xl">
-            Tu CV, con sellos que no puedes editar tú.
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#3d382f]">
-            Te conocen en la calle o en una charla, te muestran un QR, y abres su
-            currículum. Lo verde lo firmó una universidad o una empresa en Polygon.
-            Lo penal no está aquí ni en la cadena.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/auth" className="bg-[#12100c] px-5 py-3 text-[#f4efe3]">
-              Crear mi pasaporte
-            </Link>
-            <Link href="/explorar" className="border border-[#12100c] px-5 py-3">
-              Buscar profesionales
-            </Link>
-            <Link href="/pablo" className="px-5 py-3 underline">
-              Ver el CV de Pablo
-            </Link>
+    <div>
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute -right-24 top-0 h-[520px] w-[520px] rounded-full bg-foil/10 blur-3xl" />
+        <div className="page-wrap grid items-center gap-12 !pt-10 md:grid-cols-[1.2fr_0.8fr] md:!pt-16">
+          <div className="rise">
+            <p className="kicker">Identidad profesional · LatAm</p>
+            <h1 className="font-display mt-5 text-[3rem] font-semibold leading-[0.95] tracking-tight md:text-[5.5rem]">
+              Tu CV.
+              <br />
+              Firmado.
+              <br />
+              <span className="text-foil">Inalterable.</span>
+            </h1>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-600">
+              Alguien te conoce. Escanea. Ve tu currículum. Lo verde lo firmó una
+              universidad o una empresa en la cadena. Lo penal no está aquí.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/auth" className="btn btn-foil">
+                Crear perfil
+              </Link>
+              <Link href="/explorar" className="btn btn-ghost">
+                Explorar
+              </Link>
+              <Link href="/pablo" className="btn text-ink-600 hover:text-foil">
+                Ver ejemplo
+              </Link>
+            </div>
           </div>
+
+          {featured && (
+            <Link href={`/${featured.handle}`} className="group relative rise block">
+              <div className="absolute -inset-1 rounded-[1.75rem] bg-gradient-to-br from-foil/40 to-transparent opacity-40 blur-md transition group-hover:opacity-70" />
+              <article className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#111]">
+                {featured.avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={featured.avatarUrl}
+                    alt=""
+                    className="h-[420px] w-full object-cover"
+                  />
+                ) : null}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                <div className="absolute bottom-0 p-6">
+                  <p className="font-mono text-[11px] text-foil">/{featured.handle}</p>
+                  <h2 className="font-display mt-1 text-3xl">{featured.legalName}</h2>
+                  <p className="mt-1 text-sm text-ink-50/70">{featured.displayHeadline}</p>
+                </div>
+              </article>
+            </Link>
+          )}
         </div>
-        <aside className="paper-card p-6">
-          <p className="text-xs uppercase tracking-[0.18em] text-[#7a7366]">Semáforo</p>
-          <ul className="mt-4 space-y-4 text-sm">
-            <li>
-              <strong>Blanco</strong> — lo declaró el titular. Editable.
-            </li>
-            <li>
-              <strong>Amarillo</strong> — DataCamp, Microsoft, Coursera u otra API Web2.
-            </li>
-            <li>
-              <strong>Verde</strong> — atestación EAS on-chain. Inmutable.
-            </li>
-          </ul>
-          <p className="mt-6 text-xs text-[#7a7366]">
-            Antecedentes: otra sección, off-chain, borrable. Nunca un token penal.
-          </p>
-        </aside>
       </section>
 
-      <section>
-        <div className="flex items-end justify-between">
-          <h2 className="font-display text-3xl">Algunos pasaportes</h2>
-          <Link href="/explorar" className="text-sm underline">
-            Directorio completo
-          </Link>
-        </div>
-        <ul className="mt-6 grid gap-4 md:grid-cols-3">
-          {sample.map((p) => (
-            <li key={p.id} className="paper-card p-5">
-              <p className="text-xs text-[#7a7366]">/{p.handle}</p>
-              <h3 className="font-display mt-1 text-2xl">{p.legalName}</h3>
-              <p className="mt-2 text-sm text-[#3d382f]">{p.displayHeadline}</p>
-              <Link href={`/${p.handle}`} className="mt-4 inline-block text-sm underline">
-                Abrir CV
-              </Link>
-            </li>
+      <section className="page-wrap space-y-14 !pt-4">
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/5 md:grid-cols-3">
+          {[
+            { t: "Declarado", d: "Lo escribiste tú. Se puede editar." },
+            { t: "Web2", d: "Validado por el emisor original." },
+            { t: "On-chain", d: "Firmado en Polygon. No se toca." },
+          ].map((item, i) => (
+            <article key={item.t} className="bg-[#0a0a0a] p-7">
+              <span className="visa-stamp text-foil">{String(i + 1).padStart(2, "0")} {item.t}</span>
+              <p className="mt-4 text-sm leading-relaxed text-ink-600">{item.d}</p>
+            </article>
           ))}
-        </ul>
+        </div>
+
+        <div>
+          <div className="flex items-end justify-between">
+            <h2 className="font-display text-3xl md:text-4xl">En el directorio</h2>
+            <Link href="/explorar" className="text-sm text-foil hover:underline">
+              Ver todos
+            </Link>
+          </div>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-3">
+            {sample.map((p) => (
+              <li key={p.id}>
+                <Link href={`/${p.handle}`} className="group block overflow-hidden rounded-2xl border border-white/10">
+                  {p.avatarUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.avatarUrl} alt="" className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
+                  ) : (
+                    <div className="flex h-48 items-center justify-center bg-[#141414] font-display text-4xl text-foil">
+                      {p.legalName.slice(0, 1)}
+                    </div>
+                  )}
+                  <div className="p-4">
+                    <p className="font-mono text-[10px] text-foil">/{p.handle}</p>
+                    <h3 className="font-display mt-1 text-xl">{p.legalName}</h3>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </div>
   );

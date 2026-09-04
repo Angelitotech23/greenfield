@@ -1,7 +1,7 @@
 export default function PrivacidadPage() {
   return (
-    <article className="prose-sm max-w-3xl space-y-6 leading-relaxed">
-      <p className="text-xs uppercase tracking-[0.2em] text-[#9a7420]">Documento de producto</p>
+    <article className="page-wrap prose-sm max-w-3xl space-y-6 leading-relaxed">
+      <p className="kicker">Documento de producto</p>
       <h1 className="font-display text-4xl">Política de privacidad y derecho al olvido</h1>
       <p>
         Este texto es el marco operativo de Pasaporte Profesional. No sustituye un

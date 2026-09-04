@@ -12,11 +12,11 @@ export default async function AppHome() {
   if (!cv) redirect("/auth");
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrap space-y-8">
       <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-[#9a7420]">Panel del titular</p>
+        <p className="kicker">Panel del titular</p>
         <h1 className="font-display mt-2 text-4xl">Editar tu CV</h1>
-        <p className="mt-2 max-w-2xl text-[#3d382f]">
+        <p className="mt-2 max-w-2xl text-ink-600">
           Foto, titular, bio, skills y lo declarado se pueden cambiar. El nombre
           legal y lo firmado on-chain están bloqueados.
         </p>

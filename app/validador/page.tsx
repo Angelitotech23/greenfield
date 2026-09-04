@@ -9,14 +9,14 @@ export default async function ValidadorPage() {
   const session = await getSession();
   if (!session) redirect("/auth");
   if (!hasRole(session, "validator")) {
-    return <p>Solo el rol validador carga o borra el vault. Entra como validador-oficial.</p>;
+    return <p className="page-wrap">Solo el rol validador carga o borra el vault. Entra como validador-oficial.</p>;
   }
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrap space-y-8">
       <div>
         <h1 className="font-display text-4xl">Vault de integridad</h1>
-        <p className="mt-2 max-w-2xl text-[#3d382f]">
+        <p className="mt-2 max-w-2xl text-ink-600">
           Off-chain, cifrado lógicamente, con plazo y borrado duro. Cero EAS. Una
           requisitoria solo si la fuente es oficial.
         </p>

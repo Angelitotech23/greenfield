@@ -13,10 +13,10 @@ export default async function OwnerIntegrityPage() {
   const grants = db().grants.filter((g) => g.profileId === profile.id);
 
   return (
-    <div className="space-y-8">
+    <div className="page-wrap space-y-8">
       <div>
         <h1 className="font-display text-4xl">Accesos de integridad</h1>
-        <p className="mt-2 max-w-2xl text-[#3d382f]">
+        <p className="mt-2 max-w-2xl text-ink-600">
           Creas un enlace de un solo uso o temporal. No publicamos
           /{profile.handle}/antecedentes. El CV solo redirige si activaste el puente.
         </p>

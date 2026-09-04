@@ -37,5 +37,9 @@ export default async function PublicCvPage({
       ? `/integridad/${grant.token}`
       : null;
 
-  return <CvView cv={cv} integrityHref={integrityHref} />;
+  return (
+    <div className="page-wrap">
+      <CvView cv={cv} integrityHref={integrityHref} />
+    </div>
+  );
 }
